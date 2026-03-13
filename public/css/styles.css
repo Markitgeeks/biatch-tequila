@@ -174,7 +174,7 @@ ul,ol { list-style:none; }
 }
 
 /* ══════════════════════════════════════════════
-   HERO — NO floating bottle, NO bottle CTA
+   HERO — static bottle (no bobbing), no bottle price CTA
 ══════════════════════════════════════════════ */
 .hero {
   position:relative; width:100%; height:100vh; min-height:680px; overflow:hidden;
@@ -197,11 +197,11 @@ ul,ol { list-style:none; }
 
 .hero-inner {
   position:relative; z-index:3;
-  display:flex; align-items:center; justify-content:flex-start;
+  display:grid; grid-template-columns:1fr 400px; align-items:center; gap:60px;
   height:100%; max-width:var(--max); margin:0 auto;
   padding:calc(var(--hh) + 40px) var(--gutter) 80px;
 }
-.hero-copy { max-width:620px; }
+.hero-copy { max-width:580px; }
 .hero-tag {
   display:inline-flex; align-items:center; gap:12px;
   font-family:var(--font-b); font-size:10px; font-weight:700;
@@ -219,9 +219,13 @@ ul,ol { list-style:none; }
 .hero-stars { color:var(--gold-xlt); font-size:14px; letter-spacing:2px; }
 .hero-cta { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:40px; }
 .hero-awards { display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
-/* James: award icons must be mobile-friendly, not microscopic */
 .hero-awards img { height:40px; opacity:0.45; filter:brightness(2) grayscale(20%); transition:opacity 250ms; }
 .hero-awards img:hover { opacity:0.85; }
+
+/* Bottle side — static, no animation, no price tag */
+.hero-bottle { display:flex; flex-direction:column; align-items:center; gap:18px; position:relative; }
+.hero-bottle-img { width:100%; max-width:320px; filter:drop-shadow(0 40px 80px rgba(0,0,0,0.65)); }
+.hero-bottle-glow { position:absolute; bottom:-24px; left:50%; transform:translateX(-50%); width:150px; height:40px; background:radial-gradient(ellipse,rgba(155,29,58,0.55) 0%,transparent 70%); filter:blur(18px); pointer-events:none; }
 
 /* Dots */
 .hero-dots { position:absolute; bottom:38px; left:50%; transform:translateX(-50%); display:flex; gap:10px; z-index:10; }
@@ -233,8 +237,9 @@ ul,ol { list-style:none; }
 @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:1} }
 
 @media (max-width:960px) {
-  .hero { min-height:600px; }
-  .hero-inner { padding-top:calc(var(--hh)+24px); }
+  .hero-inner { grid-template-columns:1fr; padding-top:calc(var(--hh)+24px); gap:24px; }
+  .hero-bottle { order:-1; }
+  .hero-bottle-img { max-width:170px; }
   .hero-h1 { font-size:clamp(46px,11vw,68px); }
   .hero-scroll { display:none; }
   .hero-awards img { height:36px; }
